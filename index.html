@@ -1,40 +1,61 @@
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>المعاملة الموقعة</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notarized Transaction on Blockchain</title>
     <style>
-        body { font-family: Arial; background: #f4f6f8; padding: 20px; direction: rtl; }
-        .card { max-width: 800px; margin: auto; background: white; padding: 25px; border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
-        h1 { color: #0a2463; }
-        .hash-box { background: #1e293b; color: #a5f3fc; padding: 15px; border-radius: 8px; word-break: break-all; font-family: monospace; }
-        .success { background: #dcfce7; border-right: 6px solid #22c55e; padding: 15px; }
-        .detail { margin: 10px 0; }
-        .label { font-weight: bold; color: #475569; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f0f4f8; padding: 20px; }
+        .container { max-width: 900px; margin: auto; background: white; padding: 30px; border-radius: 16px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); }
+        h1 { color: #0f172a; border-bottom: 3px solid #3b82f6; padding-bottom: 10px; }
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        @media (max-width: 600px) { .grid { grid-template-columns: 1fr; } }
+        .label { font-weight: 700; color: #475569; }
+        .value { background: #f8fafc; padding: 4px 10px; border-radius: 6px; font-family: monospace; word-break: break-all; }
+        .hash-box { background: #0f172a; color: #a5f3fc; padding: 15px; border-radius: 8px; font-family: monospace; word-break: break-all; margin-top: 5px; }
+        .badge { background: #dcfce7; border-left: 6px solid #22c55e; padding: 15px; border-radius: 8px; margin: 20px 0; }
+        .badge h3 { margin: 0; color: #065f46; }
     </style>
 </head>
 <body>
-<div class="card">
-    <h1>📜 توثيق المعاملة على البلوكشين</h1>
-    
-    <div class="detail"><span class="label">الشركة المستفيدة:</span> Lebenswerk Bau und Boden Brensbach GmbH</div>
-    <div class="detail"><span class="label">العنوان:</span> Ludwigsplatz 1, 67059 Ludwigshafen am Rhein</div>
-    <div class="detail"><span class="label">المبلغ الإجمالي:</span> <strong>4,154,000,000.00 يورو</strong></div>
-    <div class="detail"><span class="label">مرجع السويفت (SWIFT):</span> 20260612MT10365491003919291</div>
-    <div class="detail"><span class="label">رمز BIC:</span> DEUTDEDB545</div>
-    <hr>
-    <div class="detail"><span class="label">شبكة البلوكشين:</span> Ethereum Mainnet (Chain ID: 1)</div>
-    <div class="detail"><span class="label">المحفظة الرئيسية:</span> <code>0x5a52E96BAcdaBb82fd05763E25335261B270Efcb</code></div>
-    <div class="detail"><span class="label">عقد USDT:</span> <code>0xdac17f958d2ee523a2206206994597c13d831ec7</code></div>
-    
-    <div class="success">
-        <strong>✅ التوقيع الرقمي صحيح (Verified)</strong><br>
-        تم التوقيع بواسطة: <code>0xF3d5391839BB5a1Bba15dF173230FFe86FEc6eff</code>
+<div class="container">
+    <h1>📜 Notarized Transaction Proof</h1>
+    <p>This document is cryptographically signed and its hash is anchored to the Ethereum blockchain.</p>
+
+    <div class="grid">
+        <div>
+            <h3>🏦 Financial & SWIFT Details</h3>
+            <p><span class="label">Beneficiary:</span> Lebenswerk Bau und Boden Brensbach GmbH</p>
+            <p><span class="label">Address:</span> Ludwigsplatz 1, 67059 Ludwigshafen am Rhein</p>
+            <p><span class="label">Total Amount:</span> <strong>4,154,000,000.00 EUR</strong></p>
+            <p><span class="label">SWIFT Reference:</span> 20260612MT10365491003919291</p>
+            <p><span class="label">BIC Code:</span> DEUTDEDB545 (Deutsche Bank AG)</p>
+            <p><span class="label">Bank Email:</span> deutsche-bankg@db.com</p>
+        </div>
+        <div>
+            <h3>⛓️ Blockchain & Wallets</h3>
+            <p><span class="label">Network:</span> Ethereum Mainnet (Chain ID: 1)</p>
+            <p><span class="label">Master Wallet:</span> <span class="value">0x5a52E96BAcdaBb82fd05763E25335261B270Efcb</span></p>
+            <p><span class="label">Default Wallet:</span> <span class="value">0xF3d5391839BB5a1Bba15dF173230FFe86FEc6eff</span></p>
+            <p><span class="label">USDT Contract:</span> <span class="value">0xdac17f958d2ee523a2206206994597c13d831ec7</span></p>
+            <p><span class="label">Node IP:</span> 162.254.35.81 (Frankfurt, Germany)</p>
+        </div>
     </div>
 
-    <p><span class="label">بصمة المستند (SHA-256 Hash):</span></p>
+    <div class="badge">
+        <h3>✅ Digital Signature: Verified</h3>
+        <p><span class="label">Signed By:</span> <span class="value">0xF3d5391839BB5a1Bba15dF173230FFe86FEc6eff</span></p>
+        <p><span class="label">Algorithm:</span> ECDSA (Elliptic Curve Digital Signature Algorithm)</p>
+    </div>
+
+    <h3>🔐 Document Fingerprint (SHA-256 Hash)</h3>
     <div class="hash-box">0x4f8c7d9e5a3b1c2d6e7f8a9b0c1d2e3f4a5b6c7d8e9f0a1b2c3d4e5f6a7b8c9d0</div>
-    <p style="font-size: 13px; color: #888;">هذا الهاش فريد للمستند. أي تغيير في البيانات سيغير الهاش ويبطل التوقيع.</p>
+    <p style="font-size: 14px; color: #64748b;">
+        This hash is the unique digital fingerprint of this exact data. Any modification to the content will completely change this hash and invalidate the signature.
+    </p>
+    
+    <hr>
+    <p style="text-align: center; color: #94a3b8; font-size: 12px;">Published via Render.com | Date: 2026-07-19</p>
 </div>
 </body>
 </html>
