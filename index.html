@@ -3,243 +3,115 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>توثيق المعاملة · دليل البلوكشين</title>
+    <title>توثيق المعاملة · الطريقة اليدوية</title>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #f0f4f8;
-            padding: 2rem 1.5rem;
-            color: #0f172a;
-            direction: rtl;
-        }
-        .container {
-            max-width: 1000px;
-            margin: 0 auto;
-            background: white;
-            padding: 2.5rem;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.07);
-        }
-        h1 {
-            font-size: 2.2rem;
-            border-bottom: 4px solid #3b82f6;
-            padding-bottom: 0.75rem;
-            margin-bottom: 1.5rem;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-        .sub { color: #475569; margin-bottom: 2rem; font-size: 1.05rem; }
-        .grid-2 {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 2rem;
-            margin: 2rem 0;
-        }
-        @media (max-width: 700px) { .grid-2 { grid-template-columns: 1fr; } }
-        .section-title {
-            font-size: 1.3rem;
-            font-weight: 600;
-            margin-bottom: 1rem;
-            color: #1e293b;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
+        body { font-family: 'Segoe UI', Tahoma, sans-serif; background: #f0f4f8; padding: 2rem 1.5rem; color: #0f172a; direction: rtl; }
+        .container { max-width: 1000px; margin: auto; background: white; padding: 2.5rem; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.07); }
+        h1 { font-size: 2.2rem; border-bottom: 4px solid #3b82f6; padding-bottom: 0.75rem; margin-bottom: 1.5rem; }
+        .sub { color: #475569; margin-bottom: 2rem; }
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin: 2rem 0; }
+        @media (max-width:700px){ .grid-2 { grid-template-columns: 1fr; } }
+        .section-title { font-size: 1.3rem; font-weight: 600; margin-bottom: 1rem; color: #1e293b; }
         .detail { margin-bottom: 0.75rem; line-height: 1.6; }
         .label { font-weight: 700; color: #475569; display: inline-block; min-width: 120px; }
-        .value {
-            background: #f8fafc;
-            padding: 0.2rem 0.7rem;
-            border-radius: 6px;
-            font-family: 'Courier New', monospace;
-            font-size: 0.9rem;
-            word-break: break-all;
-        }
-        .badge-success {
-            background: #dcfce7;
-            border-right: 6px solid #22c55e;
-            padding: 1.5rem;
-            border-radius: 10px;
-            margin: 1.5rem 0;
-        }
-        .badge-success h3 { color: #065f46; margin-bottom: 0.5rem; }
-        .hash-box {
-            background: #0f172a;
-            color: #a5f3fc;
-            padding: 1.2rem;
-            border-radius: 10px;
-            font-family: 'Courier New', monospace;
-            font-size: 0.95rem;
-            word-break: break-all;
-            margin-top: 0.5rem;
-            direction: ltr;
-            text-align: left;
-        }
-        .btn-group {
-            display: flex;
-            gap: 15px;
-            margin: 20px 0;
-            flex-wrap: wrap;
-        }
-        .btn-primary, .btn-secondary, .btn-metamask {
-            padding: 14px 32px;
-            border: none;
-            border-radius: 50px;
-            font-size: 1.1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s;
-            flex: 1 1 auto;
-        }
-        .btn-metamask {
-            background: #f6851b;
-            color: white;
-            box-shadow: 0 4px 12px rgba(246, 133, 27, 0.3);
-        }
-        .btn-metamask:hover { background: #e2761b; transform: translateY(-2px); }
-        .btn-primary {
-            background: #3b82f6;
-            color: white;
-            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
-        }
+        .value { background: #f8fafc; padding: 0.2rem 0.7rem; border-radius: 6px; font-family: monospace; word-break: break-all; }
+        .badge-success { background: #dcfce7; border-right: 6px solid #22c55e; padding: 1.5rem; border-radius: 10px; margin: 1.5rem 0; }
+        .badge-success h3 { color: #065f46; }
+        .hash-box { background: #0f172a; color: #a5f3fc; padding: 1.2rem; border-radius: 10px; font-family: monospace; word-break: break-all; direction: ltr; text-align: left; }
+        .btn-group { display: flex; gap: 15px; margin: 20px 0; flex-wrap: wrap; }
+        .btn-primary, .btn-secondary { padding: 14px 32px; border: none; border-radius: 50px; font-size: 1.1rem; font-weight: 600; cursor: pointer; transition: 0.2s; flex: 1 1 auto; }
+        .btn-primary { background: #3b82f6; color: white; box-shadow: 0 4px 12px rgba(59,130,246,0.3); }
         .btn-primary:hover { background: #2563eb; transform: translateY(-2px); }
-        .btn-secondary {
-            background: #e2e8f0;
-            color: #1e293b;
-        }
+        .btn-secondary { background: #e2e8f0; color: #1e293b; }
         .btn-secondary:hover { background: #cbd5e1; }
-        #status {
-            margin-top: 1rem;
-            padding: 1rem;
-            border-radius: 8px;
-            display: none;
-            font-weight: 500;
-        }
-        #status.success {
-            display: block;
-            background: #dcfce7;
-            color: #065f46;
-            border: 1px solid #86efac;
-        }
-        #status.error {
-            display: block;
-            background: #fee2e2;
-            color: #991b1b;
-            border: 1px solid #fca5a5;
-        }
-        #status.pending {
-            display: block;
-            background: #fef9c3;
-            color: #854d0e;
-            border: 1px solid #fde047;
-        }
-        .instructions {
-            background: #f8fafc;
-            padding: 1.5rem;
-            border-radius: 12px;
-            margin-top: 20px;
-            border: 1px solid #e2e8f0;
-        }
-        .instructions h3 { margin-bottom: 10px; color: #0f172a; }
+        .btn-success { background: #22c55e; color: white; box-shadow: 0 4px 12px rgba(34,197,94,0.3); }
+        .btn-success:hover { background: #16a34a; transform: translateY(-2px); }
+        #status { margin-top: 1rem; padding: 1rem; border-radius: 8px; display: none; font-weight: 500; }
+        #status.success { display: block; background: #dcfce7; color: #065f46; border: 1px solid #86efac; }
+        .instructions { background: #f8fafc; padding: 1.5rem; border-radius: 12px; margin-top: 20px; border: 1px solid #e2e8f0; }
         .instructions ol { padding-right: 20px; }
         .instructions li { margin-bottom: 10px; line-height: 1.7; }
-        .footer {
-            margin-top: 2.5rem;
-            text-align: center;
-            color: #94a3b8;
-            font-size: 0.85rem;
-            border-top: 1px solid #e2e8f0;
-            padding-top: 1.5rem;
-        }
-        .code-snippet {
-            background: #1e293b;
-            color: #e2e8f0;
-            padding: 8px 14px;
-            border-radius: 6px;
-            font-family: monospace;
-            direction: ltr;
-            display: inline-block;
-        }
-        .metamask-icon { display: inline-block; margin-left: 8px; }
+        .code-snippet { background: #1e293b; color: #e2e8f0; padding: 8px 14px; border-radius: 6px; font-family: monospace; direction: ltr; display: inline-block; }
+        .footer { margin-top: 2.5rem; text-align: center; color: #94a3b8; font-size: 0.85rem; border-top: 1px solid #e2e8f0; padding-top: 1.5rem; }
+        .note-box { background: #fef9c3; padding: 15px; border-radius: 8px; margin: 15px 0; }
     </style>
 </head>
 <body>
 <div class="container">
-    <h1>📜 توثيق المعاملة · دليل البلوكشين</h1>
-    <p class="sub">✅ البيانات موقعة رقمياً، والهاش جاهز للتسجيل على شبكة إيثيريوم.</p>
+    <h1>📜 توثيق المعاملة</h1>
+    <p class="sub">✅ البيانات موقعة رقمياً. الهاش جاهز للتسجيل على البلوكشين <strong>دون الحاجة إلى MetaMask</strong>.</p>
 
     <!-- البيانات -->
     <div class="grid-2">
         <div>
-            <div class="section-title">🏦 البيانات المالية والسويفت</div>
+            <div class="section-title">🏦 المالية والسويفت</div>
             <div class="detail"><span class="label">الشركة:</span> Lebenswerk Bau und Boden Brensbach GmbH</div>
             <div class="detail"><span class="label">العنوان:</span> Ludwigsplatz 1, 67059 Ludwigshafen</div>
-            <div class="detail"><span class="label">المبلغ الإجمالي:</span> <strong>4,154,000,000.00 يورو</strong></div>
+            <div class="detail"><span class="label">المبلغ:</span> <strong>4,154,000,000.00 يورو</strong></div>
             <div class="detail"><span class="label">مرجع SWIFT:</span> 20260612MT10365491003919291</div>
-            <div class="detail"><span class="label">رمز BIC:</span> DEUTDEDB545 (Deutsche Bank)</div>
-            <div class="detail"><span class="label">البريد الإلكتروني:</span> deutsche-bankg@db.com</div>
-            <div class="detail"><span class="label">تاريخ المعاملة:</span> 2026-06-12</div>
+            <div class="detail"><span class="label">BIC:</span> DEUTDEDB545 (Deutsche Bank)</div>
         </div>
         <div>
-            <div class="section-title">⛓️ البلوكشين والمحافظ</div>
+            <div class="section-title">⛓️ البلوكشين</div>
             <div class="detail"><span class="label">الشبكة:</span> Ethereum Mainnet (Chain ID: 1)</div>
-            <div class="detail"><span class="label">المحفظة الافتراضية:</span> <span class="value">0xF3d5391839BB5a1Bba15dF173230FFe86FEc6eff</span></div>
             <div class="detail"><span class="label">المحفظة الرئيسية:</span> <span class="value">0x5a52E96BAcdaBb82fd05763E25335261B270Efcb</span></div>
             <div class="detail"><span class="label">عقد USDT:</span> <span class="value">0xdac17f958d2ee523a2206206994597c13d831ec7</span></div>
-            <div class="detail"><span class="label">عنوان العقدة:</span> 162.254.35.81 (فرانكفورت)</div>
-            <div class="detail"><span class="label">خوارزميات الحماية:</span> RSA-2048 · ECDSA · SHA-256</div>
+            <div class="detail"><span class="label">الحماية:</span> RSA-2048 · ECDSA · SHA-256</div>
         </div>
     </div>
 
     <!-- التوقيع -->
     <div class="badge-success">
-        <h3>✅ التوقيع الرقمي: صحيح (موثّق)</h3>
+        <h3>✅ التوقيع الرقمي: صحيح</h3>
         <div class="detail"><span class="label">وقّع بواسطة:</span> <span class="value">0xF3d5391839BB5a1Bba15dF173230FFe86FEc6eff</span></div>
-        <div class="detail"><span class="label">الخوارزمية:</span> ECDSA (secp256k1)</div>
     </div>
 
     <!-- الهاش -->
     <div style="margin-top: 10px;"><strong>🔐 بصمة المستند (SHA-256)</strong></div>
-    <div class="hash-box" id="hashDisplay">⏳ جارٍ حساب الهاش...</div>
-    <p style="font-size: 0.9rem; color: #64748b; margin-top: 0.5rem;">
-        هذه البصمة فريدة ومشتقة من البيانات أعلاه. أي تغيير ولو بسيط يغير الهاش بالكامل ويبطل التوقيع.
-    </p>
+    <div class="hash-box" id="hashDisplay">⏳ جارٍ الحساب...</div>
 
-    <!-- الأزرار (MetaMask + يدوي) -->
+    <!-- الأزرار -->
     <div class="btn-group">
-        <button class="btn-metamask" id="metamaskBtn">🦊 تسجيل عبر MetaMask (ضغطة واحدة)</button>
-        <button class="btn-secondary" id="copyHashBtn">📋 نسخ الهاش</button>
-        <button class="btn-secondary" id="showInstructionsBtn">📖 تعليمات يدوية</button>
+        <button class="btn-primary" id="copyHashBtn">📋 نسخ الهاش</button>
+        <button class="btn-success" id="downloadJsonBtn">📥 تحميل ملف المعاملة (JSON) لرفعه على MyEtherWallet</button>
+        <button class="btn-secondary" id="showInstructionsBtn">📖 عرض الخطوات اليدوية</button>
     </div>
     <div id="status"></div>
 
-    <!-- تعليمات التسجيل اليدوي (مخفية افتراضياً) -->
+    <!-- تعليمات مفصلة -->
     <div class="instructions" id="instructionsBox" style="display: none;">
-        <h3>📘 كيفية التسجيل يدوياً (بدون MetaMask)</h3>
-        <p style="margin-bottom: 15px;">أرسل معاملة بقيمة <strong>0 ETH</strong> تحتوي على الهاش في حقل <strong>البيانات (Data/Hex Data)</strong>:</p>
+        <h3>📘 خطوات التسجيل اليدوي (بدون MetaMask)</h3>
+        <div class="note-box">
+            <strong>⚠️ ملاحظة مهمة:</strong> تحتاج إلى رصيد صغير من <strong>ETH</strong> (حوالي 0.001 - 0.003) على شبكة Ethereum Mainnet لدفع رسوم المعاملة.
+        </div>
         <ol>
-            <li>افتح محفظتك (Trust Wallet، MyEtherWallet، أو أي محفظة تدعم Web3).</li>
-            <li>أرسل <strong>0 ETH</strong> إلى عنوانك الخاص.</li>
-            <li>في الخيارات المتقدمة، الصق الهاش التالي في حقل البيانات:<br>
-                <span class="code-snippet" id="instructionHashDisplay">جارٍ التحميل...</span>
+            <li><strong>انسخ الهاش</strong> من المربع الأسود أعلاه (أو استخدم زر النسخ).</li>
+            <li>
+                <strong>الطريقة الأولى (الأسهل):</strong> استخدم زر <strong>"تحميل ملف المعاملة"</strong> أعلاه.
+                ستحصل على ملف <code>transaction.json</code>. اذهب إلى <a href="https://www.myetherwallet.com" target="_blank">MyEtherWallet.com</a>، اختر "Send Transaction" ثم "Upload JSON" وارفع الملف، وستكون كل البيانات (العنوان، القيمة، والهاش) معبأة تلقائياً. فقط وقّع وأرسل.
             </li>
-            <li>أرسل المعاملة وانتظر التأكيد (دقيقة واحدة). ستحصل على رابط على Etherscan كدليل نهائي.</li>
+            <li>
+                <strong>الطريقة الثانية (يدوياً):</strong> افتح محفظتك (Trust Wallet - الهاتف، أو MyEtherWallet - الكمبيوتر).
+                <ul>
+                    <li>أرسل <strong>0 ETH</strong> إلى عنوانك الخاص (نفس المحفظة).</li>
+                    <li>افتح الخيارات المتقدمة (Advanced) والصق الهاش في حقل <strong>البيانات (Data / Hex Data)</strong>.</li>
+                </ul>
+            </li>
+            <li>أرسل المعاملة وانتظر دقيقة واحدة للتأكيد.</li>
+            <li>بعد التأكيد، انسخ هاش المعاملة (Tx Hash) من المستكشف (Etherscan) واحتفظ به كدليل نهائي على السلسلة.</li>
         </ol>
-        <p style="margin-top: 15px; background: #fef9c3; padding: 12px; border-radius: 8px;">
-            ⚠️ تحتاج إلى رصيد صغير من ETH (حوالي 0.001 - 0.003) على Ethereum Mainnet لدفع رسوم المعاملة.
+        <p style="margin-top:15px; background:#dbeafe; padding:12px; border-radius:8px;">
+            💡 <strong>نصيحة:</strong> إذا كنت تستخدم Trust Wallet على الهاتف، تأكد من اختيار شبكة <strong>Ethereum</strong> وليس BSC أو Polygon.
         </p>
     </div>
 
-    <div class="footer">
-        استضافته Render.com · التاريخ: 2026-07-19
-    </div>
+    <div class="footer">استضافته Render.com · التاريخ: 2026-07-19</div>
 </div>
 
 <script>
     // -------------------------------------------------------------
-    // 1. تعريف البيانات
+    // 1. البيانات الثابتة
     // -------------------------------------------------------------
     const DATA = {
         financial: {
@@ -265,6 +137,7 @@
             algorithm: "ECDSA"
         }
     };
+    const MY_ADDRESS = "0xF3d5391839BB5a1Bba15dF173230FFe86FEc6eff";
 
     // -------------------------------------------------------------
     // 2. حساب الهاش
@@ -284,8 +157,6 @@
         try {
             currentHash = await computeHash(DATA);
             document.getElementById('hashDisplay').textContent = currentHash;
-            const instSpan = document.getElementById('instructionHashDisplay');
-            if (instSpan) instSpan.textContent = currentHash;
             return currentHash;
         } catch (err) {
             document.getElementById('hashDisplay').textContent = '❌ خطأ: ' + err.message;
@@ -294,89 +165,11 @@
     }
 
     // -------------------------------------------------------------
-    // 3. زر MetaMask (التسجيل الفوري)
-    // -------------------------------------------------------------
-    async function registerWithMetaMask() {
-        const statusDiv = document.getElementById('status');
-        const btn = document.getElementById('metamaskBtn');
-        btn.disabled = true;
-        statusDiv.className = 'pending';
-        statusDiv.style.display = 'block';
-        statusDiv.textContent = '⏳ جارٍ الاتصال بـ MetaMask...';
-
-        // التأكد من وجود MetaMask
-        if (typeof window.ethereum === 'undefined') {
-            statusDiv.className = 'error';
-            statusDiv.innerHTML = '❌ MetaMask غير مثبت. <a href="https://metamask.io/download/" target="_blank" style="color:#3b82f6;">اضغط هنا لتحميله</a>';
-            btn.disabled = false;
-            return;
-        }
-
-        try {
-            // طلب الاتصال
-            const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
-            const fromAddress = accounts[0];
-
-            if (!currentHash) await updateHash();
-            if (!currentHash) throw new Error('فشل حساب الهاش');
-
-            // التحقق من الشبكة (يجب أن تكون Mainnet)
-            const chainId = await window.ethereum.request({ method: 'eth_chainId' });
-            if (chainId !== '0x1') {
-                statusDiv.className = 'error';
-                statusDiv.textContent = '❌ يرجى التبديل إلى شبكة Ethereum Mainnet (Chain ID 1) في MetaMask.';
-                btn.disabled = false;
-                return;
-            }
-
-            statusDiv.textContent = '⏳ جارٍ فتح نافذة MetaMask للتوقيع...';
-
-            // بناء المعاملة
-            const txParams = {
-                from: fromAddress,
-                to: fromAddress, // نرسل إلى نفس المحفظة
-                value: '0x0',
-                data: currentHash,
-                chainId: 1,
-            };
-
-            // إرسال المعاملة
-            const txHash = await window.ethereum.request({
-                method: 'eth_sendTransaction',
-                params: [txParams]
-            });
-
-            statusDiv.className = 'success';
-            statusDiv.innerHTML = `
-                ✅ تم إرسال المعاملة بنجاح!<br>
-                📌 هاش المعاملة: <span class="value">${txHash}</span><br>
-                🔍 <a href="https://etherscan.io/tx/${txHash}" target="_blank" style="color:#3b82f6;">عرض على Etherscan</a>
-            `;
-
-        } catch (error) {
-            console.error(error);
-            statusDiv.className = 'error';
-            if (error.code === 4001) {
-                statusDiv.textContent = '❌ تم رفض المعاملة من قبل المستخدم.';
-            } else {
-                statusDiv.textContent = '❌ خطأ: ' + (error.message || error);
-            }
-        } finally {
-            btn.disabled = false;
-        }
-    }
-
-    // -------------------------------------------------------------
-    // 4. نسخ الهاش
+    // 3. نسخ الهاش
     // -------------------------------------------------------------
     function copyHash() {
         const statusDiv = document.getElementById('status');
-        if (!currentHash) {
-            statusDiv.className = 'error';
-            statusDiv.style.display = 'block';
-            statusDiv.textContent = '❌ لم يتم حساب الهاش بعد.';
-            return;
-        }
+        if (!currentHash) { statusDiv.className = 'error'; statusDiv.style.display = 'block'; statusDiv.textContent = '❌ لم يتم حساب الهاش بعد.'; return; }
         navigator.clipboard.writeText(currentHash).then(() => {
             statusDiv.className = 'success';
             statusDiv.style.display = 'block';
@@ -392,13 +185,53 @@
             ta.remove();
             statusDiv.className = 'success';
             statusDiv.style.display = 'block';
-            statusDiv.textContent = '✅ تم نسخ الهاش (طريقة احتياطية).';
+            statusDiv.textContent = '✅ تم النسخ (طريقة احتياطية).';
             setTimeout(() => { statusDiv.style.display = 'none'; }, 3000);
         });
     }
 
     // -------------------------------------------------------------
-    // 5. إظهار/إخفاء التعليمات
+    // 4. تحميل ملف JSON جاهز لـ MyEtherWallet
+    // -------------------------------------------------------------
+    function downloadTransactionJson() {
+        const statusDiv = document.getElementById('status');
+        if (!currentHash) {
+            statusDiv.className = 'error';
+            statusDiv.style.display = 'block';
+            statusDiv.textContent = '❌ انتظر حتى يتم حساب الهاش.';
+            return;
+        }
+
+        // بناء كائن المعاملة (غير موقّع) بصيغة MEW
+        // MEW يقبل حقول معينة
+        const tx = {
+            to: MY_ADDRESS,
+            value: "0x0",
+            data: currentHash,
+            chainId: 1,
+            gas: "0x5208", // 21000 (حد أدنى)
+            gasPrice: "0x3b9aca00" // 1 Gwei (تقريبي، يمكن تعديله في MEW)
+        };
+
+        const jsonString = JSON.stringify(tx, null, 2);
+        const blob = new Blob([jsonString], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'transaction_to_broadcast.json';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+
+        statusDiv.className = 'success';
+        statusDiv.style.display = 'block';
+        statusDiv.innerHTML = `✅ تم تحميل الملف بنجاح!<br>اذهب إلى <a href="https://www.myetherwallet.com" target="_blank" style="color:#3b82f6;">MyEtherWallet.com</a> → Send Transaction → Upload JSON.`;
+        setTimeout(() => { statusDiv.style.display = 'none'; }, 8000);
+    }
+
+    // -------------------------------------------------------------
+    // 5. إظهار التعليمات
     // -------------------------------------------------------------
     function toggleInstructions() {
         const box = document.getElementById('instructionsBox');
@@ -408,19 +241,19 @@
             btn.textContent = '🔒 إخفاء التعليمات';
         } else {
             box.style.display = 'none';
-            btn.textContent = '📖 تعليمات يدوية';
+            btn.textContent = '📖 عرض الخطوات اليدوية';
         }
     }
 
     // -------------------------------------------------------------
-    // 6. تشغيل عند التحميل
+    // 6. تشغيل
     // -------------------------------------------------------------
     window.addEventListener('DOMContentLoaded', async () => {
         await updateHash();
-        document.getElementById('metamaskBtn').addEventListener('click', registerWithMetaMask);
         document.getElementById('copyHashBtn').addEventListener('click', copyHash);
+        document.getElementById('downloadJsonBtn').addEventListener('click', downloadTransactionJson);
         document.getElementById('showInstructionsBtn').addEventListener('click', toggleInstructions);
     });
 </script>
 </body>
-</html>
+    </html>
