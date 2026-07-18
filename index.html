@@ -1,20 +1,17 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Notarized Transaction · On-Chain</title>
+    <title>توثيق المعاملة · دليل البلوكشين</title>
     <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: #f0f4f8;
             padding: 2rem 1.5rem;
             color: #0f172a;
+            direction: rtl;
         }
         .container {
             max-width: 1000px;
@@ -33,23 +30,14 @@
             align-items: center;
             gap: 12px;
         }
-        .sub {
-            color: #475569;
-            margin-bottom: 2rem;
-            font-size: 1.05rem;
-        }
+        .sub { color: #475569; margin-bottom: 2rem; font-size: 1.05rem; }
         .grid-2 {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 2rem;
             margin: 2rem 0;
         }
-        @media (max-width: 700px) {
-            .grid-2 {
-                grid-template-columns: 1fr;
-                gap: 1.5rem;
-            }
-        }
+        @media (max-width: 700px) { .grid-2 { grid-template-columns: 1fr; } }
         .section-title {
             font-size: 1.3rem;
             font-weight: 600;
@@ -59,16 +47,8 @@
             align-items: center;
             gap: 8px;
         }
-        .detail {
-            margin-bottom: 0.75rem;
-            line-height: 1.6;
-        }
-        .label {
-            font-weight: 700;
-            color: #475569;
-            display: inline-block;
-            min-width: 130px;
-        }
+        .detail { margin-bottom: 0.75rem; line-height: 1.6; }
+        .label { font-weight: 700; color: #475569; display: inline-block; min-width: 120px; }
         .value {
             background: #f8fafc;
             padding: 0.2rem 0.7rem;
@@ -79,15 +59,12 @@
         }
         .badge-success {
             background: #dcfce7;
-            border-left: 6px solid #22c55e;
+            border-right: 6px solid #22c55e;
             padding: 1.5rem;
             border-radius: 10px;
             margin: 1.5rem 0;
         }
-        .badge-success h3 {
-            color: #065f46;
-            margin-bottom: 0.5rem;
-        }
+        .badge-success h3 { color: #065f46; margin-bottom: 0.5rem; }
         .hash-box {
             background: #0f172a;
             color: #a5f3fc;
@@ -97,32 +74,42 @@
             font-size: 0.95rem;
             word-break: break-all;
             margin-top: 0.5rem;
+            direction: ltr;
+            text-align: left;
         }
-        .btn-primary {
-            background: #3b82f6;
-            color: white;
-            border: none;
+        .btn-group {
+            display: flex;
+            gap: 15px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+        .btn-primary, .btn-secondary, .btn-metamask {
             padding: 14px 32px;
+            border: none;
             border-radius: 50px;
             font-size: 1.1rem;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.2s;
+            flex: 1 1 auto;
+        }
+        .btn-metamask {
+            background: #f6851b;
+            color: white;
+            box-shadow: 0 4px 12px rgba(246, 133, 27, 0.3);
+        }
+        .btn-metamask:hover { background: #e2761b; transform: translateY(-2px); }
+        .btn-primary {
+            background: #3b82f6;
+            color: white;
             box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
-            margin: 1.5rem 0 0.5rem 0;
-            width: 100%;
         }
-        .btn-primary:hover {
-            background: #2563eb;
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(59, 130, 246, 0.4);
+        .btn-primary:hover { background: #2563eb; transform: translateY(-2px); }
+        .btn-secondary {
+            background: #e2e8f0;
+            color: #1e293b;
         }
-        .btn-primary:disabled {
-            background: #94a3b8;
-            cursor: not-allowed;
-            transform: none;
-            box-shadow: none;
-        }
+        .btn-secondary:hover { background: #cbd5e1; }
         #status {
             margin-top: 1rem;
             padding: 1rem;
@@ -148,6 +135,16 @@
             color: #854d0e;
             border: 1px solid #fde047;
         }
+        .instructions {
+            background: #f8fafc;
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin-top: 20px;
+            border: 1px solid #e2e8f0;
+        }
+        .instructions h3 { margin-bottom: 10px; color: #0f172a; }
+        .instructions ol { padding-right: 20px; }
+        .instructions li { margin-bottom: 10px; line-height: 1.7; }
         .footer {
             margin-top: 2.5rem;
             text-align: center;
@@ -156,206 +153,274 @@
             border-top: 1px solid #e2e8f0;
             padding-top: 1.5rem;
         }
-        .hash-label {
-            margin-top: 1.5rem;
-            font-weight: 600;
+        .code-snippet {
+            background: #1e293b;
+            color: #e2e8f0;
+            padding: 8px 14px;
+            border-radius: 6px;
+            font-family: monospace;
+            direction: ltr;
+            display: inline-block;
         }
+        .metamask-icon { display: inline-block; margin-left: 8px; }
     </style>
 </head>
 <body>
-    <div class="container" id="app">
-        <h1>📜 Notarized Transaction</h1>
-        <p class="sub">✅ Cryptographically signed &amp; ready for on-chain anchoring (Ethereum Mainnet).</p>
+<div class="container">
+    <h1>📜 توثيق المعاملة · دليل البلوكشين</h1>
+    <p class="sub">✅ البيانات موقعة رقمياً، والهاش جاهز للتسجيل على شبكة إيثيريوم.</p>
 
-        <!-- البيانات الأساسية -->
-        <div class="grid-2">
-            <div>
-                <div class="section-title">🏦 Financial &amp; SWIFT</div>
-                <div class="detail"><span class="label">Beneficiary:</span> Lebenswerk Bau und Boden Brensbach GmbH</div>
-                <div class="detail"><span class="label">Address:</span> Ludwigsplatz 1, 67059 Ludwigshafen</div>
-                <div class="detail"><span class="label">Total Amount:</span> <strong>4,154,000,000.00 EUR</strong></div>
-                <div class="detail"><span class="label">SWIFT Ref:</span> 20260612MT10365491003919291</div>
-                <div class="detail"><span class="label">BIC:</span> DEUTDEDB545 (Deutsche Bank)</div>
-                <div class="detail"><span class="label">Bank Email:</span> deutsche-bankg@db.com</div>
-                <div class="detail"><span class="label">Tx Date:</span> 2026-06-12</div>
-            </div>
-            <div>
-                <div class="section-title">⛓️ Blockchain &amp; Wallets</div>
-                <div class="detail"><span class="label">Network:</span> Ethereum Mainnet (Chain ID: 1)</div>
-                <div class="detail"><span class="label">Default Wallet:</span> <span class="value">0xF3d5391839BB5a1Bba15dF173230FFe86FEc6eff</span></div>
-                <div class="detail"><span class="label">Master Wallet:</span> <span class="value">0x5a52E96BAcdaBb82fd05763E25335261B270Efcb</span></div>
-                <div class="detail"><span class="label">USDT Contract:</span> <span class="value">0xdac17f958d2ee523a2206206994597c13d831ec7</span></div>
-                <div class="detail"><span class="label">Node IP:</span> 162.254.35.81 (Frankfurt)</div>
-                <div class="detail"><span class="label">Security:</span> RSA-2048 · ECDSA · SHA-256</div>
-            </div>
+    <!-- البيانات -->
+    <div class="grid-2">
+        <div>
+            <div class="section-title">🏦 البيانات المالية والسويفت</div>
+            <div class="detail"><span class="label">الشركة:</span> Lebenswerk Bau und Boden Brensbach GmbH</div>
+            <div class="detail"><span class="label">العنوان:</span> Ludwigsplatz 1, 67059 Ludwigshafen</div>
+            <div class="detail"><span class="label">المبلغ الإجمالي:</span> <strong>4,154,000,000.00 يورو</strong></div>
+            <div class="detail"><span class="label">مرجع SWIFT:</span> 20260612MT10365491003919291</div>
+            <div class="detail"><span class="label">رمز BIC:</span> DEUTDEDB545 (Deutsche Bank)</div>
+            <div class="detail"><span class="label">البريد الإلكتروني:</span> deutsche-bankg@db.com</div>
+            <div class="detail"><span class="label">تاريخ المعاملة:</span> 2026-06-12</div>
         </div>
-
-        <!-- حالة التوقيع -->
-        <div class="badge-success">
-            <h3>✅ Digital Signature: Verified</h3>
-            <div class="detail"><span class="label">Signed By:</span> <span class="value">0xF3d5391839BB5a1Bba15dF173230FFe86FEc6eff</span></div>
-            <div class="detail"><span class="label">Algorithm:</span> ECDSA (secp256k1)</div>
-        </div>
-
-        <!-- الهاش المحسوب ديناميكياً -->
-        <div class="hash-label">🔐 Document Fingerprint (SHA-256)</div>
-        <div class="hash-box" id="hashDisplay">⏳ Calculating hash...</div>
-        <p style="font-size: 0.9rem; color: #64748b; margin-top: 0.5rem;">
-            This hash is uniquely derived from the exact data above. Any change breaks the verification.
-        </p>
-
-        <!-- زر التسجيل على البلوكشين -->
-        <button class="btn-primary" id="registerBtn">🔗 Register This Hash on Ethereum Now</button>
-        <div id="status"></div>
-
-        <div class="footer">
-            Hosted on Render.com · Timestamp: 2026-07-19
+        <div>
+            <div class="section-title">⛓️ البلوكشين والمحافظ</div>
+            <div class="detail"><span class="label">الشبكة:</span> Ethereum Mainnet (Chain ID: 1)</div>
+            <div class="detail"><span class="label">المحفظة الافتراضية:</span> <span class="value">0xF3d5391839BB5a1Bba15dF173230FFe86FEc6eff</span></div>
+            <div class="detail"><span class="label">المحفظة الرئيسية:</span> <span class="value">0x5a52E96BAcdaBb82fd05763E25335261B270Efcb</span></div>
+            <div class="detail"><span class="label">عقد USDT:</span> <span class="value">0xdac17f958d2ee523a2206206994597c13d831ec7</span></div>
+            <div class="detail"><span class="label">عنوان العقدة:</span> 162.254.35.81 (فرانكفورت)</div>
+            <div class="detail"><span class="label">خوارزميات الحماية:</span> RSA-2048 · ECDSA · SHA-256</div>
         </div>
     </div>
 
-    <script>
-        // ------------------------------------------------------------
-        // 1. تعريف البيانات (تطابق المعروض أعلاه)
-        // ------------------------------------------------------------
-        const DATA = {
-            financial: {
-                beneficiary: "Lebenswerk Bau und Boden Brensbach GmbH",
-                address: "Ludwigsplatz 1, 67059 Ludwigshafen",
-                totalAmountEUR: "4,154,000,000.00",
-                swiftRef: "20260612MT10365491003919291",
-                bic: "DEUTDEDB545",
-                bankEmail: "deutsche-bankg@db.com",
-                txDate: "2026-06-12"
-            },
-            blockchain: {
-                network: "Ethereum Mainnet",
-                chainId: 1,
-                defaultWallet: "0xF3d5391839BB5a1Bba15dF173230FFe86FEc6eff",
-                masterWallet: "0x5a52E96BAcdaBb82fd05763E25335261B270Efcb",
-                usdtContract: "0xdac17f958d2ee523a2206206994597c13d831ec7",
-                nodeIP: "162.254.35.81",
-                securityAlgorithms: "RSA-2048 · ECDSA · SHA-256"
-            },
-            signature: {
-                signedBy: "0xF3d5391839BB5a1Bba15dF173230FFe86FEc6eff",
-                algorithm: "ECDSA"
-            }
-        };
+    <!-- التوقيع -->
+    <div class="badge-success">
+        <h3>✅ التوقيع الرقمي: صحيح (موثّق)</h3>
+        <div class="detail"><span class="label">وقّع بواسطة:</span> <span class="value">0xF3d5391839BB5a1Bba15dF173230FFe86FEc6eff</span></div>
+        <div class="detail"><span class="label">الخوارزمية:</span> ECDSA (secp256k1)</div>
+    </div>
 
-        // ------------------------------------------------------------
-        // 2. حساب الهاش (SHA-256) داخل المتصفح
-        // ------------------------------------------------------------
-        async function computeHash(data) {
-            // تحويل الكائن إلى نص JSON بترتيب ثابت (بدون مسافات)
-            const jsonString = JSON.stringify(data);
-            const encoder = new TextEncoder();
-            const dataBuffer = encoder.encode(jsonString);
-            const hashBuffer = await crypto.subtle.digest('SHA-256', dataBuffer);
-            const hashArray = Array.from(new Uint8Array(hashBuffer));
-            return '0x' + hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+    <!-- الهاش -->
+    <div style="margin-top: 10px;"><strong>🔐 بصمة المستند (SHA-256)</strong></div>
+    <div class="hash-box" id="hashDisplay">⏳ جارٍ حساب الهاش...</div>
+    <p style="font-size: 0.9rem; color: #64748b; margin-top: 0.5rem;">
+        هذه البصمة فريدة ومشتقة من البيانات أعلاه. أي تغيير ولو بسيط يغير الهاش بالكامل ويبطل التوقيع.
+    </p>
+
+    <!-- الأزرار (MetaMask + يدوي) -->
+    <div class="btn-group">
+        <button class="btn-metamask" id="metamaskBtn">🦊 تسجيل عبر MetaMask (ضغطة واحدة)</button>
+        <button class="btn-secondary" id="copyHashBtn">📋 نسخ الهاش</button>
+        <button class="btn-secondary" id="showInstructionsBtn">📖 تعليمات يدوية</button>
+    </div>
+    <div id="status"></div>
+
+    <!-- تعليمات التسجيل اليدوي (مخفية افتراضياً) -->
+    <div class="instructions" id="instructionsBox" style="display: none;">
+        <h3>📘 كيفية التسجيل يدوياً (بدون MetaMask)</h3>
+        <p style="margin-bottom: 15px;">أرسل معاملة بقيمة <strong>0 ETH</strong> تحتوي على الهاش في حقل <strong>البيانات (Data/Hex Data)</strong>:</p>
+        <ol>
+            <li>افتح محفظتك (Trust Wallet، MyEtherWallet، أو أي محفظة تدعم Web3).</li>
+            <li>أرسل <strong>0 ETH</strong> إلى عنوانك الخاص.</li>
+            <li>في الخيارات المتقدمة، الصق الهاش التالي في حقل البيانات:<br>
+                <span class="code-snippet" id="instructionHashDisplay">جارٍ التحميل...</span>
+            </li>
+            <li>أرسل المعاملة وانتظر التأكيد (دقيقة واحدة). ستحصل على رابط على Etherscan كدليل نهائي.</li>
+        </ol>
+        <p style="margin-top: 15px; background: #fef9c3; padding: 12px; border-radius: 8px;">
+            ⚠️ تحتاج إلى رصيد صغير من ETH (حوالي 0.001 - 0.003) على Ethereum Mainnet لدفع رسوم المعاملة.
+        </p>
+    </div>
+
+    <div class="footer">
+        استضافته Render.com · التاريخ: 2026-07-19
+    </div>
+</div>
+
+<script>
+    // -------------------------------------------------------------
+    // 1. تعريف البيانات
+    // -------------------------------------------------------------
+    const DATA = {
+        financial: {
+            beneficiary: "Lebenswerk Bau und Boden Brensbach GmbH",
+            address: "Ludwigsplatz 1, 67059 Ludwigshafen",
+            totalAmountEUR: "4,154,000,000.00",
+            swiftRef: "20260612MT10365491003919291",
+            bic: "DEUTDEDB545",
+            bankEmail: "deutsche-bankg@db.com",
+            txDate: "2026-06-12"
+        },
+        blockchain: {
+            network: "Ethereum Mainnet",
+            chainId: 1,
+            defaultWallet: "0xF3d5391839BB5a1Bba15dF173230FFe86FEc6eff",
+            masterWallet: "0x5a52E96BAcdaBb82fd05763E25335261B270Efcb",
+            usdtContract: "0xdac17f958d2ee523a2206206994597c13d831ec7",
+            nodeIP: "162.254.35.81",
+            securityAlgorithms: "RSA-2048 · ECDSA · SHA-256"
+        },
+        signature: {
+            signedBy: "0xF3d5391839BB5a1Bba15dF173230FFe86FEc6eff",
+            algorithm: "ECDSA"
+        }
+    };
+
+    // -------------------------------------------------------------
+    // 2. حساب الهاش
+    // -------------------------------------------------------------
+    async function computeHash(data) {
+        const jsonString = JSON.stringify(data);
+        const encoder = new TextEncoder();
+        const dataBuffer = encoder.encode(jsonString);
+        const hashBuffer = await crypto.subtle.digest('SHA-256', dataBuffer);
+        const hashArray = Array.from(new Uint8Array(hashBuffer));
+        return '0x' + hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+    }
+
+    let currentHash = null;
+
+    async function updateHash() {
+        try {
+            currentHash = await computeHash(DATA);
+            document.getElementById('hashDisplay').textContent = currentHash;
+            const instSpan = document.getElementById('instructionHashDisplay');
+            if (instSpan) instSpan.textContent = currentHash;
+            return currentHash;
+        } catch (err) {
+            document.getElementById('hashDisplay').textContent = '❌ خطأ: ' + err.message;
+            return null;
+        }
+    }
+
+    // -------------------------------------------------------------
+    // 3. زر MetaMask (التسجيل الفوري)
+    // -------------------------------------------------------------
+    async function registerWithMetaMask() {
+        const statusDiv = document.getElementById('status');
+        const btn = document.getElementById('metamaskBtn');
+        btn.disabled = true;
+        statusDiv.className = 'pending';
+        statusDiv.style.display = 'block';
+        statusDiv.textContent = '⏳ جارٍ الاتصال بـ MetaMask...';
+
+        // التأكد من وجود MetaMask
+        if (typeof window.ethereum === 'undefined') {
+            statusDiv.className = 'error';
+            statusDiv.innerHTML = '❌ MetaMask غير مثبت. <a href="https://metamask.io/download/" target="_blank" style="color:#3b82f6;">اضغط هنا لتحميله</a>';
+            btn.disabled = false;
+            return;
         }
 
-        let currentHash = null;
+        try {
+            // طلب الاتصال
+            const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+            const fromAddress = accounts[0];
 
-        async function updateHash() {
-            try {
-                currentHash = await computeHash(DATA);
-                document.getElementById('hashDisplay').textContent = currentHash;
-                return currentHash;
-            } catch (err) {
-                document.getElementById('hashDisplay').textContent = '❌ Error calculating hash: ' + err.message;
-                return null;
-            }
-        }
+            if (!currentHash) await updateHash();
+            if (!currentHash) throw new Error('فشل حساب الهاش');
 
-        // ------------------------------------------------------------
-        // 3. وظيفة التسجيل على البلوكشين (عبر MetaMask)
-        // ------------------------------------------------------------
-        async function registerOnChain() {
-            const statusDiv = document.getElementById('status');
-            const btn = document.getElementById('registerBtn');
-
-            // تعطيل الزر مؤقتاً
-            btn.disabled = true;
-            statusDiv.className = 'pending';
-            statusDiv.style.display = 'block';
-            statusDiv.textContent = '⏳ Connecting to MetaMask...';
-
-            // 3.1 التأكد من وجود MetaMask
-            if (typeof window.ethereum === 'undefined') {
+            // التحقق من الشبكة (يجب أن تكون Mainnet)
+            const chainId = await window.ethereum.request({ method: 'eth_chainId' });
+            if (chainId !== '0x1') {
                 statusDiv.className = 'error';
-                statusDiv.textContent = '❌ MetaMask is not installed. Please install it to register on-chain.';
+                statusDiv.textContent = '❌ يرجى التبديل إلى شبكة Ethereum Mainnet (Chain ID 1) في MetaMask.';
                 btn.disabled = false;
                 return;
             }
 
-            try {
-                // 3.2 طلب إذن الاتصال بالمحفظة
-                const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
-                const fromAddress = accounts[0];
+            statusDiv.textContent = '⏳ جارٍ فتح نافذة MetaMask للتوقيع...';
 
-                // 3.3 التأكد من وجود الهاش
-                if (!currentHash) {
-                    await updateHash();
-                    if (!currentHash) throw new Error('Failed to compute hash.');
-                }
+            // بناء المعاملة
+            const txParams = {
+                from: fromAddress,
+                to: fromAddress, // نرسل إلى نفس المحفظة
+                value: '0x0',
+                data: currentHash,
+                chainId: 1,
+            };
 
-                statusDiv.textContent = `⏳ Preparing transaction from ${fromAddress}...`;
+            // إرسال المعاملة
+            const txHash = await window.ethereum.request({
+                method: 'eth_sendTransaction',
+                params: [txParams]
+            });
 
-                // 3.4 التحقق من الشبكة (يجب أن تكون Ethereum Mainnet - Chain ID 1)
-                const chainId = await window.ethereum.request({ method: 'eth_chainId' });
-                if (chainId !== '0x1') {
-                    statusDiv.className = 'error';
-                    statusDiv.textContent = '❌ Please switch your MetaMask to Ethereum Mainnet (Chain ID 1). Current chain: ' +
-                        parseInt(chainId);
-                    btn.disabled = false;
-                    return;
-                }
+            statusDiv.className = 'success';
+            statusDiv.innerHTML = `
+                ✅ تم إرسال المعاملة بنجاح!<br>
+                📌 هاش المعاملة: <span class="value">${txHash}</span><br>
+                🔍 <a href="https://etherscan.io/tx/${txHash}" target="_blank" style="color:#3b82f6;">عرض على Etherscan</a>
+            `;
 
-                // 3.5 بناء المعاملة (إرسال 0 ETH مع الهاش في حقل data)
-                const txParams = {
-                    from: fromAddress,
-                    to: fromAddress, // نرسل إلى نفس المحفظة
-                    value: '0x0', // 0 ETH
-                    data: currentHash, // الهاش
-                    chainId: 1,
-                };
-
-                statusDiv.textContent = '⏳ Please confirm the transaction in MetaMask...';
-
-                // 3.6 إرسال المعاملة
-                const txHash = await window.ethereum.request({
-                    method: 'eth_sendTransaction',
-                    params: [txParams]
-                });
-
-                // 3.7 نجاح
-                statusDiv.className = 'success';
-                statusDiv.innerHTML =
-                    `✅ Transaction sent successfully!<br>📌 Tx Hash: <span class="value">${txHash}</span><br>🔍 <a href="https://etherscan.io/tx/${txHash}" target="_blank" style="color:#3b82f6;">View on Etherscan</a>`;
-
-            } catch (error) {
-                // 3.8 فشل / رفض المستخدم
-                console.error(error);
-                statusDiv.className = 'error';
-                if (error.code === 4001) {
-                    statusDiv.textContent = '❌ Transaction rejected by user.';
-                } else {
-                    statusDiv.textContent = '❌ Error: ' + (error.message || error);
-                }
-            } finally {
-                btn.disabled = false;
+        } catch (error) {
+            console.error(error);
+            statusDiv.className = 'error';
+            if (error.code === 4001) {
+                statusDiv.textContent = '❌ تم رفض المعاملة من قبل المستخدم.';
+            } else {
+                statusDiv.textContent = '❌ خطأ: ' + (error.message || error);
             }
+        } finally {
+            btn.disabled = false;
         }
+    }
 
-        // ------------------------------------------------------------
-        // 4. تشغيل الكود عند تحميل الصفحة
-        // ------------------------------------------------------------
-        window.addEventListener('DOMContentLoaded', async () => {
-            await updateHash();
-            // ربط الزر بالوظيفة
-            document.getElementById('registerBtn').addEventListener('click', registerOnChain);
+    // -------------------------------------------------------------
+    // 4. نسخ الهاش
+    // -------------------------------------------------------------
+    function copyHash() {
+        const statusDiv = document.getElementById('status');
+        if (!currentHash) {
+            statusDiv.className = 'error';
+            statusDiv.style.display = 'block';
+            statusDiv.textContent = '❌ لم يتم حساب الهاش بعد.';
+            return;
+        }
+        navigator.clipboard.writeText(currentHash).then(() => {
+            statusDiv.className = 'success';
+            statusDiv.style.display = 'block';
+            statusDiv.innerHTML = `✅ تم نسخ الهاش: <span class="value">${currentHash}</span>`;
+            setTimeout(() => { statusDiv.style.display = 'none'; }, 4000);
+        }).catch(() => {
+            // طريقة احتياطية
+            const ta = document.createElement('textarea');
+            ta.value = currentHash;
+            document.body.appendChild(ta);
+            ta.select();
+            document.execCommand('copy');
+            ta.remove();
+            statusDiv.className = 'success';
+            statusDiv.style.display = 'block';
+            statusDiv.textContent = '✅ تم نسخ الهاش (طريقة احتياطية).';
+            setTimeout(() => { statusDiv.style.display = 'none'; }, 3000);
         });
-    </script>
+    }
+
+    // -------------------------------------------------------------
+    // 5. إظهار/إخفاء التعليمات
+    // -------------------------------------------------------------
+    function toggleInstructions() {
+        const box = document.getElementById('instructionsBox');
+        const btn = document.getElementById('showInstructionsBtn');
+        if (box.style.display === 'none') {
+            box.style.display = 'block';
+            btn.textContent = '🔒 إخفاء التعليمات';
+        } else {
+            box.style.display = 'none';
+            btn.textContent = '📖 تعليمات يدوية';
+        }
+    }
+
+    // -------------------------------------------------------------
+    // 6. تشغيل عند التحميل
+    // -------------------------------------------------------------
+    window.addEventListener('DOMContentLoaded', async () => {
+        await updateHash();
+        document.getElementById('metamaskBtn').addEventListener('click', registerWithMetaMask);
+        document.getElementById('copyHashBtn').addEventListener('click', copyHash);
+        document.getElementById('showInstructionsBtn').addEventListener('click', toggleInstructions);
+    });
+</script>
 </body>
 </html>
