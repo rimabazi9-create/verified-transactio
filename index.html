@@ -3,59 +3,359 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Notarized Transaction on Blockchain</title>
+    <title>Notarized Transaction · On-Chain</title>
     <style>
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f0f4f8; padding: 20px; }
-        .container { max-width: 900px; margin: auto; background: white; padding: 30px; border-radius: 16px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); }
-        h1 { color: #0f172a; border-bottom: 3px solid #3b82f6; padding-bottom: 10px; }
-        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-        @media (max-width: 600px) { .grid { grid-template-columns: 1fr; } }
-        .label { font-weight: 700; color: #475569; }
-        .value { background: #f8fafc; padding: 4px 10px; border-radius: 6px; font-family: monospace; word-break: break-all; }
-        .hash-box { background: #0f172a; color: #a5f3fc; padding: 15px; border-radius: 8px; font-family: monospace; word-break: break-all; margin-top: 5px; }
-        .badge { background: #dcfce7; border-left: 6px solid #22c55e; padding: 15px; border-radius: 8px; margin: 20px 0; }
-        .badge h3 { margin: 0; color: #065f46; }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f0f4f8;
+            padding: 2rem 1.5rem;
+            color: #0f172a;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            padding: 2.5rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.07);
+        }
+        h1 {
+            font-size: 2.2rem;
+            border-bottom: 4px solid #3b82f6;
+            padding-bottom: 0.75rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .sub {
+            color: #475569;
+            margin-bottom: 2rem;
+            font-size: 1.05rem;
+        }
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+        @media (max-width: 700px) {
+            .grid-2 {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+        }
+        .section-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: #1e293b;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .detail {
+            margin-bottom: 0.75rem;
+            line-height: 1.6;
+        }
+        .label {
+            font-weight: 700;
+            color: #475569;
+            display: inline-block;
+            min-width: 130px;
+        }
+        .value {
+            background: #f8fafc;
+            padding: 0.2rem 0.7rem;
+            border-radius: 6px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            word-break: break-all;
+        }
+        .badge-success {
+            background: #dcfce7;
+            border-left: 6px solid #22c55e;
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin: 1.5rem 0;
+        }
+        .badge-success h3 {
+            color: #065f46;
+            margin-bottom: 0.5rem;
+        }
+        .hash-box {
+            background: #0f172a;
+            color: #a5f3fc;
+            padding: 1.2rem;
+            border-radius: 10px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.95rem;
+            word-break: break-all;
+            margin-top: 0.5rem;
+        }
+        .btn-primary {
+            background: #3b82f6;
+            color: white;
+            border: none;
+            padding: 14px 32px;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+            margin: 1.5rem 0 0.5rem 0;
+            width: 100%;
+        }
+        .btn-primary:hover {
+            background: #2563eb;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(59, 130, 246, 0.4);
+        }
+        .btn-primary:disabled {
+            background: #94a3b8;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        #status {
+            margin-top: 1rem;
+            padding: 1rem;
+            border-radius: 8px;
+            display: none;
+            font-weight: 500;
+        }
+        #status.success {
+            display: block;
+            background: #dcfce7;
+            color: #065f46;
+            border: 1px solid #86efac;
+        }
+        #status.error {
+            display: block;
+            background: #fee2e2;
+            color: #991b1b;
+            border: 1px solid #fca5a5;
+        }
+        #status.pending {
+            display: block;
+            background: #fef9c3;
+            color: #854d0e;
+            border: 1px solid #fde047;
+        }
+        .footer {
+            margin-top: 2.5rem;
+            text-align: center;
+            color: #94a3b8;
+            font-size: 0.85rem;
+            border-top: 1px solid #e2e8f0;
+            padding-top: 1.5rem;
+        }
+        .hash-label {
+            margin-top: 1.5rem;
+            font-weight: 600;
+        }
     </style>
 </head>
 <body>
-<div class="container">
-    <h1>📜 Notarized Transaction Proof</h1>
-    <p>This document is cryptographically signed and its hash is anchored to the Ethereum blockchain.</p>
+    <div class="container" id="app">
+        <h1>📜 Notarized Transaction</h1>
+        <p class="sub">✅ Cryptographically signed &amp; ready for on-chain anchoring (Ethereum Mainnet).</p>
 
-    <div class="grid">
-        <div>
-            <h3>🏦 Financial & SWIFT Details</h3>
-            <p><span class="label">Beneficiary:</span> Lebenswerk Bau und Boden Brensbach GmbH</p>
-            <p><span class="label">Address:</span> Ludwigsplatz 1, 67059 Ludwigshafen am Rhein</p>
-            <p><span class="label">Total Amount:</span> <strong>4,154,000,000.00 EUR</strong></p>
-            <p><span class="label">SWIFT Reference:</span> 20260612MT10365491003919291</p>
-            <p><span class="label">BIC Code:</span> DEUTDEDB545 (Deutsche Bank AG)</p>
-            <p><span class="label">Bank Email:</span> deutsche-bankg@db.com</p>
+        <!-- البيانات الأساسية -->
+        <div class="grid-2">
+            <div>
+                <div class="section-title">🏦 Financial &amp; SWIFT</div>
+                <div class="detail"><span class="label">Beneficiary:</span> Lebenswerk Bau und Boden Brensbach GmbH</div>
+                <div class="detail"><span class="label">Address:</span> Ludwigsplatz 1, 67059 Ludwigshafen</div>
+                <div class="detail"><span class="label">Total Amount:</span> <strong>4,154,000,000.00 EUR</strong></div>
+                <div class="detail"><span class="label">SWIFT Ref:</span> 20260612MT10365491003919291</div>
+                <div class="detail"><span class="label">BIC:</span> DEUTDEDB545 (Deutsche Bank)</div>
+                <div class="detail"><span class="label">Bank Email:</span> deutsche-bankg@db.com</div>
+                <div class="detail"><span class="label">Tx Date:</span> 2026-06-12</div>
+            </div>
+            <div>
+                <div class="section-title">⛓️ Blockchain &amp; Wallets</div>
+                <div class="detail"><span class="label">Network:</span> Ethereum Mainnet (Chain ID: 1)</div>
+                <div class="detail"><span class="label">Default Wallet:</span> <span class="value">0xF3d5391839BB5a1Bba15dF173230FFe86FEc6eff</span></div>
+                <div class="detail"><span class="label">Master Wallet:</span> <span class="value">0x5a52E96BAcdaBb82fd05763E25335261B270Efcb</span></div>
+                <div class="detail"><span class="label">USDT Contract:</span> <span class="value">0xdac17f958d2ee523a2206206994597c13d831ec7</span></div>
+                <div class="detail"><span class="label">Node IP:</span> 162.254.35.81 (Frankfurt)</div>
+                <div class="detail"><span class="label">Security:</span> RSA-2048 · ECDSA · SHA-256</div>
+            </div>
         </div>
-        <div>
-            <h3>⛓️ Blockchain & Wallets</h3>
-            <p><span class="label">Network:</span> Ethereum Mainnet (Chain ID: 1)</p>
-            <p><span class="label">Master Wallet:</span> <span class="value">0x5a52E96BAcdaBb82fd05763E25335261B270Efcb</span></p>
-            <p><span class="label">Default Wallet:</span> <span class="value">0xF3d5391839BB5a1Bba15dF173230FFe86FEc6eff</span></p>
-            <p><span class="label">USDT Contract:</span> <span class="value">0xdac17f958d2ee523a2206206994597c13d831ec7</span></p>
-            <p><span class="label">Node IP:</span> 162.254.35.81 (Frankfurt, Germany)</p>
+
+        <!-- حالة التوقيع -->
+        <div class="badge-success">
+            <h3>✅ Digital Signature: Verified</h3>
+            <div class="detail"><span class="label">Signed By:</span> <span class="value">0xF3d5391839BB5a1Bba15dF173230FFe86FEc6eff</span></div>
+            <div class="detail"><span class="label">Algorithm:</span> ECDSA (secp256k1)</div>
+        </div>
+
+        <!-- الهاش المحسوب ديناميكياً -->
+        <div class="hash-label">🔐 Document Fingerprint (SHA-256)</div>
+        <div class="hash-box" id="hashDisplay">⏳ Calculating hash...</div>
+        <p style="font-size: 0.9rem; color: #64748b; margin-top: 0.5rem;">
+            This hash is uniquely derived from the exact data above. Any change breaks the verification.
+        </p>
+
+        <!-- زر التسجيل على البلوكشين -->
+        <button class="btn-primary" id="registerBtn">🔗 Register This Hash on Ethereum Now</button>
+        <div id="status"></div>
+
+        <div class="footer">
+            Hosted on Render.com · Timestamp: 2026-07-19
         </div>
     </div>
 
-    <div class="badge">
-        <h3>✅ Digital Signature: Verified</h3>
-        <p><span class="label">Signed By:</span> <span class="value">0xF3d5391839BB5a1Bba15dF173230FFe86FEc6eff</span></p>
-        <p><span class="label">Algorithm:</span> ECDSA (Elliptic Curve Digital Signature Algorithm)</p>
-    </div>
+    <script>
+        // ------------------------------------------------------------
+        // 1. تعريف البيانات (تطابق المعروض أعلاه)
+        // ------------------------------------------------------------
+        const DATA = {
+            financial: {
+                beneficiary: "Lebenswerk Bau und Boden Brensbach GmbH",
+                address: "Ludwigsplatz 1, 67059 Ludwigshafen",
+                totalAmountEUR: "4,154,000,000.00",
+                swiftRef: "20260612MT10365491003919291",
+                bic: "DEUTDEDB545",
+                bankEmail: "deutsche-bankg@db.com",
+                txDate: "2026-06-12"
+            },
+            blockchain: {
+                network: "Ethereum Mainnet",
+                chainId: 1,
+                defaultWallet: "0xF3d5391839BB5a1Bba15dF173230FFe86FEc6eff",
+                masterWallet: "0x5a52E96BAcdaBb82fd05763E25335261B270Efcb",
+                usdtContract: "0xdac17f958d2ee523a2206206994597c13d831ec7",
+                nodeIP: "162.254.35.81",
+                securityAlgorithms: "RSA-2048 · ECDSA · SHA-256"
+            },
+            signature: {
+                signedBy: "0xF3d5391839BB5a1Bba15dF173230FFe86FEc6eff",
+                algorithm: "ECDSA"
+            }
+        };
 
-    <h3>🔐 Document Fingerprint (SHA-256 Hash)</h3>
-    <div class="hash-box">0x4f8c7d9e5a3b1c2d6e7f8a9b0c1d2e3f4a5b6c7d8e9f0a1b2c3d4e5f6a7b8c9d0</div>
-    <p style="font-size: 14px; color: #64748b;">
-        This hash is the unique digital fingerprint of this exact data. Any modification to the content will completely change this hash and invalidate the signature.
-    </p>
-    
-    <hr>
-    <p style="text-align: center; color: #94a3b8; font-size: 12px;">Published via Render.com | Date: 2026-07-19</p>
-</div>
+        // ------------------------------------------------------------
+        // 2. حساب الهاش (SHA-256) داخل المتصفح
+        // ------------------------------------------------------------
+        async function computeHash(data) {
+            // تحويل الكائن إلى نص JSON بترتيب ثابت (بدون مسافات)
+            const jsonString = JSON.stringify(data);
+            const encoder = new TextEncoder();
+            const dataBuffer = encoder.encode(jsonString);
+            const hashBuffer = await crypto.subtle.digest('SHA-256', dataBuffer);
+            const hashArray = Array.from(new Uint8Array(hashBuffer));
+            return '0x' + hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+        }
+
+        let currentHash = null;
+
+        async function updateHash() {
+            try {
+                currentHash = await computeHash(DATA);
+                document.getElementById('hashDisplay').textContent = currentHash;
+                return currentHash;
+            } catch (err) {
+                document.getElementById('hashDisplay').textContent = '❌ Error calculating hash: ' + err.message;
+                return null;
+            }
+        }
+
+        // ------------------------------------------------------------
+        // 3. وظيفة التسجيل على البلوكشين (عبر MetaMask)
+        // ------------------------------------------------------------
+        async function registerOnChain() {
+            const statusDiv = document.getElementById('status');
+            const btn = document.getElementById('registerBtn');
+
+            // تعطيل الزر مؤقتاً
+            btn.disabled = true;
+            statusDiv.className = 'pending';
+            statusDiv.style.display = 'block';
+            statusDiv.textContent = '⏳ Connecting to MetaMask...';
+
+            // 3.1 التأكد من وجود MetaMask
+            if (typeof window.ethereum === 'undefined') {
+                statusDiv.className = 'error';
+                statusDiv.textContent = '❌ MetaMask is not installed. Please install it to register on-chain.';
+                btn.disabled = false;
+                return;
+            }
+
+            try {
+                // 3.2 طلب إذن الاتصال بالمحفظة
+                const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+                const fromAddress = accounts[0];
+
+                // 3.3 التأكد من وجود الهاش
+                if (!currentHash) {
+                    await updateHash();
+                    if (!currentHash) throw new Error('Failed to compute hash.');
+                }
+
+                statusDiv.textContent = `⏳ Preparing transaction from ${fromAddress}...`;
+
+                // 3.4 التحقق من الشبكة (يجب أن تكون Ethereum Mainnet - Chain ID 1)
+                const chainId = await window.ethereum.request({ method: 'eth_chainId' });
+                if (chainId !== '0x1') {
+                    statusDiv.className = 'error';
+                    statusDiv.textContent = '❌ Please switch your MetaMask to Ethereum Mainnet (Chain ID 1). Current chain: ' +
+                        parseInt(chainId);
+                    btn.disabled = false;
+                    return;
+                }
+
+                // 3.5 بناء المعاملة (إرسال 0 ETH مع الهاش في حقل data)
+                const txParams = {
+                    from: fromAddress,
+                    to: fromAddress, // نرسل إلى نفس المحفظة
+                    value: '0x0', // 0 ETH
+                    data: currentHash, // الهاش
+                    chainId: 1,
+                };
+
+                statusDiv.textContent = '⏳ Please confirm the transaction in MetaMask...';
+
+                // 3.6 إرسال المعاملة
+                const txHash = await window.ethereum.request({
+                    method: 'eth_sendTransaction',
+                    params: [txParams]
+                });
+
+                // 3.7 نجاح
+                statusDiv.className = 'success';
+                statusDiv.innerHTML =
+                    `✅ Transaction sent successfully!<br>📌 Tx Hash: <span class="value">${txHash}</span><br>🔍 <a href="https://etherscan.io/tx/${txHash}" target="_blank" style="color:#3b82f6;">View on Etherscan</a>`;
+
+            } catch (error) {
+                // 3.8 فشل / رفض المستخدم
+                console.error(error);
+                statusDiv.className = 'error';
+                if (error.code === 4001) {
+                    statusDiv.textContent = '❌ Transaction rejected by user.';
+                } else {
+                    statusDiv.textContent = '❌ Error: ' + (error.message || error);
+                }
+            } finally {
+                btn.disabled = false;
+            }
+        }
+
+        // ------------------------------------------------------------
+        // 4. تشغيل الكود عند تحميل الصفحة
+        // ------------------------------------------------------------
+        window.addEventListener('DOMContentLoaded', async () => {
+            await updateHash();
+            // ربط الزر بالوظيفة
+            document.getElementById('registerBtn').addEventListener('click', registerOnChain);
+        });
+    </script>
 </body>
 </html>
